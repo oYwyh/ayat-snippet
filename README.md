@@ -1,4 +1,4 @@
 <h1 align="center">Ayat Snippet</h1>
 <h2>I Make To Make Ayat Screenshot More Beauty And Easier!</h2>
-<h3 style="color:red">#f03c15 Still Under Develpment NOT FULL YET !</h3>
+- Still Under Develpment NOT FULL YET !
 <img src="images/ayat-snippet-screen.png">

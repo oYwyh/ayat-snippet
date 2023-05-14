@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HI</title>
+    <link rel="stylesheet" href="main.css/main.css">
+    <link rel="preload" as="font" type="font/woff2" href="fonts/sura_names.woff2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/colorjoe.css">
+    <script src="js/colorjoe.min.js"></script>
+</head>
+<body>
+    <nav class="header">
+        <div class="logo">
+            <!-- 093surah => الضحى -->
+            Ayat <span>snippet</span>
+        </div>  
+        <div class="options">
+            <button class="primary">Theme</button>
+            <button class="secondary">Export</button>
+        </div>
+    </nav>
+    <div class="wrapper">
+            <div class="surah_options">
+                <div class="title">Choose Surah</div>
+                <div class="chooser">
+
+                </div>
+            </div>
+            <div class="snippet">
+                <div class="snip" id="snip">
+                    <div class="column">
+                        <img src="images/frame/frame.png" id="surah-frame" alt="">
+                        <div class="surah-name">093surah</div>
+                    </div>
+                </div>
+            </div>
+            <div class="styler">
+                <div class="title">Background</div>
+                <div class="row">
+                    <div class="column">
+                        <label for="">width</label>
+                        <input type="number" id="width" value="600">
+                    </div>
+                    <div class="column">
+                        <label for="">height</label>
+                        <input type="number" id="height" value="700">
+                    </div>
+                </div>
+                <div class="title">Fill</div>
+                <div class="column" style="gap:1rem;">
+                    <div class="row">
+                        <i class="fa-solid fa-palette" style="color: #000000;"></i>
+                        <div class="color-picker-div"></div>
+                    </div>
+                    <div class="row">
+                        <i class="fa-solid fa-image" style="color: #000000;"></i>
+                        <div class="img-chooser"></div>
+                    </div>
+                </div>
+                <div class="color-options close" id="color-options">
+                    <div class="close" id="close-picker"><i class="fa-solid fa-xmark"></i></div>
+                    <ul>
+                        <li>solid</li>
+                        <li>gradiant</li>
+                    </ul>
+                    <div class="color-container">
+                        <div class="colorjoe"></div>
+                        <div class="config">
+                            <div class="config-title">Selected Color</div>
+                            <div class="row">
+                                <div class="selected-color"></div>
+                                <input type="text" class="selected-color-text" readonly>
+                                <div class="copy"><i class="fa-solid fa-clipboard" style="color: #ffffff;"></i></div>
+                            </div>
+                            <div class="config-title">Saved Colors</div>
+                            <div class="saved-color-div">
+                                <div class="saved-color"></div>
+                                <div class="saved-color"></div>
+                                <div class="saved-color"></div>
+                                <div class="saved-color"></div>
+                                <div class="saved-color"></div>
+                            </div>
+                            <div class="config-title">Our Suggestion!</div>
+                            <div class="suggested-color-div">
+                                <div class="suggested-color"></div>
+                                <div class="suggested-color"></div>
+                                <div class="suggested-color"></div>
+                                <div class="suggested-color"></div>
+                            </div>
+                            <div class="config-title">Add Your Own Hex Code!</div>
+                            <div class="row">
+                                <div class="hex-color-div"></div>
+                                <input type="text" class="hex-color" value="#">
+                                <div class="check"><i class="fa-solid fa-check" style="color: #ffffff;"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="imgs-gallery close" id="gallery">
+        <div class="container">
+            <div class="close" id="close-gallery"><i class="fa-solid fa-xmark"></i></div>
+            <div class="title">Add Media</div>
+            <ul>
+                <li>Library</li>
+                <li>Custom Images</li>
+            </ul>
+            <div class="wrapper">
+                    <ul class="options">
+                        <li data-img="bg">Backgrounds</li>
+                        <li data-img="frame">Frames</li>
+                    </ul>
+                <div class="images-box" data-img="bg">
+                    <img src="images/bg/paper.jpg" alt="">
+                    <img src="images/bg/paper2.jpeg" alt="">
+                </div>
+                <div class="images-box none" data-img="frame">
+                    <img src="images/frame/frame.png" alt="">
+                    <img src="images/frame/frame2.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <script src="js/main.js"></script> -->
+    <script>
+        const snip = document.getElementById('snip')
+        const surahFrame = document.querySelector('#surah-frame')
+        const width = document.getElementById('width')
+        const height = document.getElementById('height')
+        const removeGallery = document.getElementById('close-gallery');
+        const removePicker = document.getElementById('close-picker');
+        const colorOptions = document.getElementById('color-options');
+        const colorPickerDiv = document.querySelector('.color-picker-div')
+        colorPickerDiv.style.background = window.getComputedStyle(snip).backgroundColor;
+        const imgsGallery = document.querySelector('.imgs-gallery')
+        const galleryLinks = document.querySelectorAll('.imgs-gallery ul li')
+        const imagesBox = document.querySelectorAll('.images-box')
+        const imgsBg = document.querySelectorAll('.images-box[data-img="bg"] img')
+        const imgsFrame = document.querySelectorAll('.images-box[data-img="frame"] img')
+        const imgChooser = document.querySelector('.img-chooser')
+        const imgOptions = document.querySelectorAll('.options li[data-img]')
+        const hexColor = document.querySelector('.hex-color')
+        const hexColorDiv = document.querySelector('.hex-color-div')
+        const check = document.querySelector('.check')
+
+        check.addEventListener('click', () => {
+            hexColorDiv.style.background = hexColor.value;
+            snip.style.background = hexColor.value;
+            colorPickerDiv.style.background = hexColor.value;
+        })
+
+        removePicker.addEventListener('click', () => {
+            colorOptions.classList.add('close')
+        })
+
+        removeGallery.addEventListener('click', () => {
+            imgsGallery.classList.add('close')
+        })
+
+        imgChooser.addEventListener('click', () => {
+            imgsGallery.classList.remove('close')
+        })
+
+    console.log(imgOptions);
+
+        imgOptions.forEach(opt => {
+            opt.addEventListener('click', () => {
+                if(opt.getAttribute('data-img') == 'bg') {
+                    imagesBox.forEach(box => {
+                        box.getAttribute('data-img') == 'bg' ? box.classList.remove('none') : box.classList.add('none')
+                    });
+                }else {
+                    imagesBox.forEach(box => {
+                        box.getAttribute('data-img') == 'frame' ? box.classList.remove('none') : box.classList.add('none')
+                    });
+
+                }
+            })
+        });
+        colorPickerDiv.addEventListener('click', () => {
+            colorOptions.classList.remove('close')
+        })
+        width.addEventListener('change', () => {
+            snip.style.width = `${width.value}px`;
+            console.log(width.value);
+        })
+        width.addEventListener('keydown', () => {
+            snip.style.width = `${width.value}px`;
+        })
+        height.addEventListener('change', () => {
+            snip.style.height = `${height.valu}px`;
+        })
+        height.addEventListener('keydown', () => {
+            snip.style.height = `${height.valu}px`;
+        })
+
+        // const suggestedColors = document.querySelectorAll('.suggested-color')
+
+        // suggestedColors.forEach(color => {
+        //     color.addEventListener('click', () => {
+
+        //     })
+        // });
+
+        class ColorPicker {
+            constructor(root) {
+                this.root = root;
+                this.colorjoe = colorjoe.rgb(this.root.querySelector(".colorjoe"));
+                this.selectedColor = null;
+                this.savedColors = this.getSavedColors();
+                this.colorjoe.show();
+                // this.setSelectedColor("#faf1e3");
+
+                this.colorjoe.on("change", color => {
+                    this.setSelectedColor(color.hex(), true);
+                });
+
+                this.root.querySelectorAll(".saved-color").forEach((el, i) => {
+                    this.showSavedColor(el, this.savedColors[i]);
+
+                    el.addEventListener("mouseup", e => {
+                        if (e.button == 1) {
+                            this.saveColor(this.selectedColor, i);
+                            this.showSavedColor(el, this.selectedColor);
+                        }
+
+                        this.setSelectedColor(el.dataset.color);
+                    });
+                });
+            }
+
+
+            setSelectedColor(color, skipCjUpdate = false) {
+                this.selectedColor = color;
+                this.root.querySelector(".selected-color-text").value = color;
+                this.root.querySelector(".selected-color").style.background = color;
+                snip.style.background = color;
+                colorPickerDiv.style.background = color;
+
+                if (!skipCjUpdate) {
+                    this.colorjoe.set(color);
+                }
+            }
+            getSavedColors() {
+                const saved = JSON.parse(localStorage.getItem("colorpicker-saved") || "[]");
+
+                return new Array(5).fill("#ffffff").map((defaultColor, i) => {
+                    return saved[i] || defaultColor;
+                });
+            }
+
+            showSavedColor(element, color) {
+                element.style.background = color;
+                element.dataset.color = color;
+            }
+
+            saveColor(color, i) {
+                this.savedColors[i] = color;
+                localStorage.setItem("colorpicker-saved", JSON.stringify(this.savedColors));
+            }
+        }
+        document.querySelector('.copy').addEventListener('click', () => {
+            document.querySelector(".selected-color-text").select();
+            document.execCommand('copy')
+        })
+        const cp = new ColorPicker(document.querySelector(".color-container"));
+    
+
+        galleryLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                for (let i = 0; i < galleryLinks.length; i++) {
+                    galleryLinks[i].classList.remove('active')
+                }
+                link.classList.add('active')
+            })
+        });
+
+        imgsBg.forEach(img => {
+            img.addEventListener('click', () => {
+                console.log(img.src);
+                imgsGallery.classList.add('close')
+                imgChooser.style.background = `url("${img.src}")`
+                snip.style.background = `url("${img.src}")`
+            })
+        });
+        imgsFrame.forEach(img => {
+            img.addEventListener('click', () => {
+                console.log(img.src);
+                imgsGallery.classList.add('close')
+                console.log(surahFrame);
+                surahFrame.src = `${img.src}`
+            })
+        });
+    
+    
+    
+    
+    </script>
+</body>
+</html>

@@ -228,6 +228,8 @@ button {
 		#row-verses {
 			display: flex;
 			flex-direction: row;
+			justify-content: center;
+			align-items: center;
 			flex-wrap: wrap;
 			padding: 0 1rem;
 			direction: rtl;

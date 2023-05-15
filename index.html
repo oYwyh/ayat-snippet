@@ -51,8 +51,8 @@
                         <div class="surah-name">091surah</div>
                     </div>
                     <div class="basmala">
-                        <!-- <img src="../images/basmala.png" alt=""> -->
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Basmala.svg" alt="">
+                        <img src="../images/basmala.png" alt="">
+                        <!-- <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Basmala.svg" alt="alt"> -->
                     </div>
                     <div id="row-verses" class="row">
                         <p class="verse">
@@ -151,7 +151,7 @@
                 </div>
                 <div class="images-box none" data-img="verse-frame">
                     <img src="images/verse/verse-frame-brown.png" alt="">
-                    <img src="images/verse/verse-frame-brown.png" alt="">
+                    <img src="images/verse/verse-frame-blue.png" alt="">
                 </div>
             </div>
         </div>
@@ -175,29 +175,29 @@
                 anchor.remove();
             });
         }
-        function doCaptureTest() {
-        html2canvas(document.querySelector('.snip')).then(function (canvas) {
-            var ajax = new XMLHttpRequest();
-            // Setting method, server file name, and asynchronous
-            ajax.open("POST", `php/save-snip.php`, true);
-            // window.open(`../partials/save-capture.php?id=${id}`)
-            // Setting headers for POST method
-            ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            // Sending image data to server
-            ajax.send("image=" + canvas.toDataURL("image/jpeg", 0.9));
-            // Receiving response from server
-            // This function will be called multiple times
-            ajax.onreadystatechange = function () {
-                // Check when the requested is completed
-                if (this.readyState == 4 && this.status == 200) {
-                    console.log(this.responseText);
-                }
-            };
-        });
-    }
+    //     function doCaptureTest() {
+    //     html2canvas(document.querySelector('.snip')).then(function (canvas) {
+    //         var ajax = new XMLHttpRequest();
+    //         // Setting method, server file name, and asynchronous
+    //         ajax.open("POST", `php/save-snip.php`, true);
+    //         // window.open(`../partials/save-capture.php?id=${id}`)
+    //         // Setting headers for POST method
+    //         ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    //         // Sending image data to server
+    //         ajax.send("image=" + canvas.toDataURL("image/jpeg", 0.9));
+    //         // Receiving response from server
+    //         // This function will be called multiple times
+    //         ajax.onreadystatechange = function () {
+    //             // Check when the requested is completed
+    //             if (this.readyState == 4 && this.status == 200) {
+    //                 console.log(this.responseText);
+    //             }
+    //         };
+    //     });
+    // }
         exportBtn.addEventListener('click', () => {
             document.querySelector(".snip").style.borderRadius = '0px'
-            doCaptureTest();
+            doCapture();
             document.querySelector(".snip").style.borderRadius = '8px'
         })
     </script>
@@ -427,6 +427,7 @@
         const imagesBox = document.querySelectorAll('.images-box')
         const imgsBg = document.querySelectorAll('.images-box[data-img="bg"] img')
         const imgsFrame = document.querySelectorAll('.images-box[data-img="frame"] img')
+        const imgsVerseFrame = document.querySelectorAll('.images-box[data-img="verse-frame"] img')
         const imgChooser = document.querySelector('.img-chooser')
         const imgOptions = document.querySelectorAll('.options li[data-img]')
         const hexColor = document.querySelector('.hex-color')
@@ -459,11 +460,14 @@
                     imagesBox.forEach(box => {
                         box.getAttribute('data-img') == 'bg' ? box.classList.remove('none') : box.classList.add('none')
                     });
-                }else {
+                }else if(opt.getAttribute('data-img') == 'frame'){
                     imagesBox.forEach(box => {
                         box.getAttribute('data-img') == 'frame' ? box.classList.remove('none') : box.classList.add('none')
                     });
-
+                }else {
+                    imagesBox.forEach(box => {
+                        box.getAttribute('data-img') == 'verse-frame' ? box.classList.remove('none') : box.classList.add('none')
+                    });
                 }
             })
         });
@@ -579,6 +583,15 @@
                 imgsGallery.classList.add('close')
                 console.log(surahFrame);
                 surahFrame.src = `${img.src}`
+            })
+        });
+        imgsVerseFrame.forEach(img => {
+            img.addEventListener('click', () => {
+                console.log(img.src);
+                imgsGallery.classList.add('close')
+                document.querySelectorAll('.verse-frame').forEach(frame => {
+                    frame.style.backgroundImage = `url(${img.src})`
+                })
             })
         });
     

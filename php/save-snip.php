@@ -18,4 +18,4 @@ $image = str_replace(" ", "+", $image);
 $image = base64_decode($image);
 
 // Save the image as filename.jpeg
-file_put_contents("images/snip/".date('Ymds').".jpeg", $image);
+file_put_contents("../images/snips/".date('Ymds').".jpeg", $image);

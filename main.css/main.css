@@ -338,12 +338,11 @@ button {
 .wrapper .snip #row-verses .verse .verse-frame {
   margin: 0 !important;
   font-size: 22px;
-  padding: 1rem 1.6rem;
+  padding: 1rem 2rem;
   background-image: url(../images/verse/verse-frame-brown.png);
   background-repeat: no-repeat;
   background-size: cover;
-  background-position-x: -2px;
-  background-position-y: -3px;
+  background-position-y: -6px;
   text-align: center;
   -o-object-fit: cover;
      object-fit: cover;

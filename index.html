@@ -23,17 +23,38 @@
         </div>
     </nav>
     <div class="wrapper">
-            <div class="surah_options">
-                <div class="title">Choose Surah</div>
+            <div class="surah-options">
+                <div class="title">Surah Customaization! </div>
                 <div class="chooser">
-
+                    <div class="wrapper">
+                        <div class="select-btn">
+                            <span>Choose Surah</span>
+                            <div class="icon"><i class="fa-solid fa-chevron-down"></i></div>
+                        </div>
+                        <div class="content">
+                            <div class="search">
+                                <i class="fa-solid fa-search"></i>
+                                <input type="text" placeholder="Choose Surah!">
+                            </div>
+                            <div class="options">
+                                <ul>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="from">
+                            <div class="options">
+                                <ul>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="snippet">
                 <div class="snip" id="snip">
                     <div class="column">
                         <img src="images/frame/frame.png" id="surah-frame" alt="">
-                        <div class="surah-name">093surah</div>
+                        <div class="surah-name">001surah</div>
                     </div>
                 </div>
             </div>
@@ -126,6 +147,117 @@
         </div>
     </div>
     <!-- <script src="js/main.js"></script> -->
+    <script>
+        const surahOpt = document.querySelector('.surah-options'),
+        selectBtn = surahOpt.querySelector('.select-btn'),
+        content = surahOpt.querySelector('.content'),
+        searchInp = surahOpt.querySelector('input'),
+        surahNamesDiv = surahOpt.querySelector('.options ul')
+        let surahNames;
+
+        const surahName = document.querySelector('.snip .surah-name')
+
+        selectBtn.addEventListener('click', () => {
+            content.classList.toggle('active')
+        })
+
+        fetch('data/quran_chapters.json')
+            .then(async res => res.json())
+            .then(data => {
+                data.forEach(post => {
+                    surahNamesDiv.insertAdjacentHTML('beforeend', `<li id="${post.id}surah" id2="${post.id}" data-chapter="${post.id}surah">${post.name}<li>`)
+                    surahNames = document.querySelectorAll('.options ul li')
+                })
+                if(data) {
+                    searchInp.addEventListener('keyup', () => {
+                        let arrFr = []
+                        let arr = []
+                        let searchVal = searchInp.value.toLowerCase();
+                        surahNames.forEach(surah => {
+                            arrFr.push(surah.textContent)
+                            if(arrFr.length == 228) {
+                                arr = arrFr.filter(data => {
+                                    return data.toLowerCase().startsWith(searchVal)
+                                }).map(data => `<li>${data}</li>`).join()
+                                surahNamesDiv.innerHTML = arr ? arr : `<p>Opp! No Surah With That Name</p>`;
+                            }
+                        });
+                    })
+                    surahNames.forEach(surah => {
+                        if(surah.textContent == '') {
+                            surah.remove()
+                        }
+                        surah.addEventListener('click', () => {
+                            if(surah['id'].slice(0, surah['id'].indexOf('s')) < 10) {
+                                surah.id = `00${surah.id}`
+                            }else if(surah['id'].slice(0, surah['id'].indexOf('s')) > 10 && surah['id'].slice(0, surah['id'].indexOf('s')) < 100) {
+                                surah.id = `0${surah.id}`
+                            }else {
+                                surah.id = `${surah.id}`
+                            }
+                            surahName.textContent = surah.id;
+                            
+                            const from = document.createElement('div')
+                            from.classList.add('from')
+                            const fromOptions = document.createElement('div')
+                            fromOptions.classList.add('options')
+                            const fromUL = document.createElement('ul')
+                            const fromLabel = document.createElement('div')
+                            const fromInp = document.createElement('input')
+                            const row = document.createElement('div')
+                            row.classList.add('row')
+                            fromInp.setAttribute('placeholder', 'Enter Verse Number')
+                            const fromIcon = document.createElement('i')
+                            fromIcon.classList.add('fa-solid')
+                            fromIcon.classList.add('fa-check')
+                            fromInp.setAttribute('type', 'text')
+                            fromLabel.classList.add('title')
+                            fromLabel.innerHTML = 'Ayat From:'
+                            fromOptions.append(fromUL)
+                            row.append(fromInp)
+                            row.append(fromIcon)
+                            from.append(row)
+                            from.append(fromOptions)
+                            document.querySelector('.surah-options .chooser .wrapper').append(fromLabel)
+                            document.querySelector('.surah-options .chooser .wrapper').append(row)
+                            document.querySelector('.surah-options .chooser .wrapper').append(from)
+                            fetch('data/quran_ar.json')
+                                .then(res => res.json())
+                                .then(data => {
+                                    data[surah.getAttribute('id2')].forEach(post => {
+                                    fromUL.insertAdjacentHTML('beforeend', `<li>(${post.verse}) ${post.text}<li>`)
+                                        document.querySelectorAll('.from ul li').forEach(li => {
+                                            if(li.textContent == '') {
+                                                console.log(li);
+                                                li.remove()
+                                            }
+                                        });
+                                    })
+                                })
+                                fromInp.addEventListener('keyup', () => {
+                                    let arrFr = []
+                                    let arr = []
+                                    let searchVal = fromInp.value.toLowerCase();
+                                    document.querySelectorAll('.from ul li').forEach(verse => {
+                                        arrFr.push(verse.textContent)
+                                        if(arrFr.length == document.querySelectorAll('.from ul li').length) {
+                                            console.log(arr);
+                                            arr = arrFr.filter(data => {
+                                                return data.toLowerCase().startsWith(searchVal)
+                                            }).map(data => `<li>${data}</li>`).join()
+                                            fromUL.innerHTML = arr ? arr : `<p>Opp! No Verse With That Name</p>`;
+                                        }
+                                    });
+                                })
+                                })
+                        surah.onclick = () => {
+                            content.remove()
+                            // content.classList.remov('active')
+                        }
+                    })
+                }
+            })
+    </script>
     <script>
         const snip = document.getElementById('snip')
         const surahFrame = document.querySelector('#surah-frame')

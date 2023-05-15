@@ -112,20 +112,158 @@ button {
   margin-top: 2rem;
   padding: 0 1rem;
 }
-.wrapper .surah_options,
-.wrapper .styler {
-  border-radius: 8px;
+.wrapper .surah-options .chooser .wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 2rem;
+}
+.wrapper .surah-options .chooser .wrapper .select-btn {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  text-align: center;
+  gap: 2rem;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  background-color: white;
   -webkit-box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
           box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  height: 100%;
-  width: 500px;
-  background-color: white;
-}
-.wrapper .surah_options .title,
-.wrapper .styler .title {
-  font-size: 18px;
   padding: 1rem 2rem;
-  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.wrapper .surah-options .chooser .wrapper .select-btn span {
+  font-size: 18px;
+  font-weight: bolder;
+}
+.wrapper .surah-options .chooser .wrapper .select-btn .icon {
+  font-size: 18px;
+}
+.wrapper .surah-options .chooser .wrapper .content,
+.wrapper .surah-options .chooser .wrapper .from,
+.wrapper .surah-options .chooser .wrapper .to {
+  display: none;
+  overflow-y: scroll;
+  max-height: 50vh;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background-color: white;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+          box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 5px;
+  gap: 2rem;
+}
+.wrapper .surah-options .chooser .wrapper .content.active,
+.wrapper .surah-options .chooser .wrapper .from.active,
+.wrapper .surah-options .chooser .wrapper .to.active {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.wrapper .surah-options .chooser .wrapper .content .search,
+.wrapper .surah-options .chooser .wrapper .from .search,
+.wrapper .surah-options .chooser .wrapper .to .search {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 1rem 2rem;
+}
+.wrapper .surah-options .chooser .wrapper .content .search i,
+.wrapper .surah-options .chooser .wrapper .from .search i,
+.wrapper .surah-options .chooser .wrapper .to .search i {
+  border: 1px solid black;
+  border-right: none;
+  border-radius: 5px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  font-size: 18px;
+  padding: 0.71rem 1rem;
+}
+.wrapper .surah-options .chooser .wrapper .content .search input,
+.wrapper .surah-options .chooser .wrapper .from .search input,
+.wrapper .surah-options .chooser .wrapper .to .search input {
+  padding: 0.5rem 1rem;
+  font-size: 18px;
+  border: 1px solid black;
+  border-left: none;
+  border-radius: 5px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.wrapper .surah-options .chooser .wrapper .content .options,
+.wrapper .surah-options .chooser .wrapper .from .options,
+.wrapper .surah-options .chooser .wrapper .to .options {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 0rem 2rem;
+}
+.wrapper .surah-options .chooser .wrapper .content .options ul li,
+.wrapper .surah-options .chooser .wrapper .from .options ul li,
+.wrapper .surah-options .chooser .wrapper .to .options ul li {
+  font-size: 20px;
+  padding: 1rem 2rem;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+.wrapper .surah-options .chooser .wrapper .content .options ul li:hover,
+.wrapper .surah-options .chooser .wrapper .from .options ul li:hover,
+.wrapper .surah-options .chooser .wrapper .to .options ul li:hover {
+  background-color: #f1f1f1;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.wrapper .surah-options .chooser .wrapper .from,
+.wrapper .surah-options .chooser .wrapper .to {
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+}
+.wrapper .surah-options .chooser .wrapper .row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 1rem !important;
+}
+.wrapper .surah-options .chooser .wrapper .row input {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  font-size: 18px;
+  border-radius: 5px;
+}
+.wrapper .surah-options .chooser .wrapper .row i {
+  font-size: 16px;
+  background-color: #2a6baf;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
 }
 .wrapper .snippet {
   display: -webkit-box;
@@ -263,6 +401,22 @@ button {
   -webkit-transition: 0.1s;
   transition: 0.1s;
 }
+.wrapper .surah-options,
+.wrapper .styler {
+  border-radius: 8px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+          box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  height: 100%;
+  width: 500px;
+  background-color: white;
+}
+.wrapper .surah-options .title,
+.wrapper .styler .title {
+  font-size: 18px;
+  padding: 1rem 2rem;
+  font-weight: bold;
+}
+
 .imgs-gallery {
   position: absolute;
   display: -webkit-box;

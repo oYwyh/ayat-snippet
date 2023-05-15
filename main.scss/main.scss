@@ -78,18 +78,113 @@ button {
     width: 100%;
     margin-top: 2rem;
     padding: 0 1rem;
-	.surah_options,
-    .styler {
-        border-radius: 8px;
-        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-        height: 100%;
-        width: 500px;
-        background-color: white;
-        .title {
-            font-size: 18px;
-            padding: 1rem 2rem;
-            font-weight: bold;
-        }
+	.surah-options {
+		.chooser {
+			.wrapper {
+				display: flex;
+				flex-direction: column;
+				gap: 2rem;
+				.select-btn {
+					width: 100%;
+					display: flex;
+					justify-content: space-between;
+					text-align: center;
+					gap: 2rem;
+					flex-direction: row;
+					background-color: white;
+					box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+					padding: 1rem 2rem;
+					border-radius: 5px;
+					cursor: pointer;
+					span {
+						font-size: 18px;
+						font-weight: bolder;
+					}
+					.icon {
+						font-size: 18px;
+					}
+				}
+				.content,
+				.from,
+				.to {
+					display: none;
+					overflow-y: scroll;
+					max-height: 50vh;
+					flex-direction: column;
+					background-color: white;
+					box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+					border-radius:5px ;
+					gap: 2rem;
+					&.active {
+						display: flex;
+					}
+					.search {
+						display: flex;
+						align-items: center;
+						padding: 1rem 2rem;
+						i {
+							border: 1px solid black;
+							border-right: none;
+							border-radius: 5px;
+							border-top-right-radius: 0;
+							border-bottom-right-radius: 0;
+							font-size: 18px;
+							padding: 0.71rem 1rem;
+						}
+						input {
+							padding: 0.5rem 1rem;
+							font-size: 18px;
+							border: 1px solid black;
+							border-left: none;
+							border-radius: 5px;
+							border-top-left-radius: 0;
+							border-bottom-left-radius: 0;
+						}
+					}
+					.options {
+						display: flex;
+						flex-direction: column;
+						padding: 0rem 2rem;
+						ul {
+							li {
+								font-size: 20px;
+								padding: 1rem 2rem;
+								transition: 0.3s;
+								&:hover {
+									background-color: #f1f1f1;
+									cursor: pointer;
+									border-radius:5px;
+								}
+							}
+						}
+					}
+				}
+				.from,
+				.to {
+					display: flex !important;
+				}
+				.row {
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					gap: 1rem !important;
+					input {
+						width: 100%;
+						padding: 0.5rem 1rem;
+						font-size: 18px;
+						border-radius: 5px;
+					}
+					i {
+						font-size: 16px;
+						background-color: #2a6baf;
+						color: white;
+						padding: 0.5rem 1rem;
+						border-radius: 5px;
+							cursor: pointer;
+					}
+				}
+			}
+		}
 	}
     .snippet {
         display: flex;
@@ -207,6 +302,19 @@ button {
 			}
 		}
     }
+	.surah-options,
+    .styler {
+        border-radius: 8px;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        height: 100%;
+        width: 500px;
+        background-color: white;
+        .title {
+            font-size: 18px;
+            padding: 1rem 2rem;
+            font-weight: bold;
+        }
+	}
 }
 .imgs-gallery {
 	position: absolute;

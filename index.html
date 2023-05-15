@@ -19,7 +19,7 @@
         </div>  
         <div class="options">
             <button class="primary">Theme</button>
-            <button class="secondary">Export</button>
+            <button class="secondary" id="export">Export</button>
         </div>
     </nav>
     <div class="wrapper">
@@ -41,12 +41,6 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="from">
-                            <div class="options">
-                                <ul>
-                                </ul>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -54,7 +48,18 @@
                 <div class="snip" id="snip">
                     <div class="column">
                         <img src="images/frame/frame.png" id="surah-frame" alt="">
-                        <div class="surah-name">001surah</div>
+                        <div class="surah-name">091surah</div>
+                    </div>
+                    <div class="basmala">
+                        <!-- <img src="../images/basmala.png" alt=""> -->
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Basmala.svg" alt="">
+                    </div>
+                    <div id="row-verses" class="row">
+                        <p class="verse">
+                        وَٱلشَّمۡسِ وَضُحَىٰهَا <span class="verse-frame">1</span>
+                        وَٱلۡقَمَرِ إِذَا تَلَىٰهَا <span class="verse-frame">2</span>
+                        وَٱلنَّهَارِ إِذَا جَلَّىٰهَا <span class="verse-frame">3</span>
+                    </p>
                     </div>
                 </div>
             </div>
@@ -134,6 +139,7 @@
                     <ul class="options">
                         <li data-img="bg">Backgrounds</li>
                         <li data-img="frame">Frames</li>
+                        <li data-img="verse-frame">Verse Frames</li>
                     </ul>
                 <div class="images-box" data-img="bg">
                     <img src="images/bg/paper.jpg" alt="">
@@ -143,10 +149,58 @@
                     <img src="images/frame/frame.png" alt="">
                     <img src="images/frame/frame2.png" alt="">
                 </div>
+                <div class="images-box none" data-img="verse-frame">
+                    <img src="images/verse/verse-frame-brown.png" alt="">
+                    <img src="images/verse/verse-frame-brown.png" alt="">
+                </div>
             </div>
         </div>
     </div>
     <!-- <script src="js/main.js"></script> -->
+    <script src="js/html2canvas.js"></script>
+    <script>
+        console.log();
+        const exportBtn = document.getElementById('export');
+        function doCapture() {
+            html2canvas(document.getElementById("snip")).then(function (canvas) {
+                const base64Image = canvas.toDataURL('image/jpeg');
+                var anchor = document.createElement('a')
+                anchor.setAttribute('href', base64Image);
+                if(document.querySelector('.surah-name').textContent != '' && document.querySelectorAll('.verse-frame').length != 0) {
+                    anchor.setAttribute('download', `${document.querySelector('.surah-name').textContent}_ayat_${document.querySelectorAll('.verse-frame')[0].textContent}_to_${document.querySelectorAll('.verse-frame').length}`)
+                }else {
+                    alert('Choose Ayat Firstly!')
+                }
+                anchor.click()
+                anchor.remove();
+            });
+        }
+        function doCaptureTest() {
+        html2canvas(document.querySelector('.snip')).then(function (canvas) {
+            var ajax = new XMLHttpRequest();
+            // Setting method, server file name, and asynchronous
+            ajax.open("POST", `php/save-snip.php`, true);
+            // window.open(`../partials/save-capture.php?id=${id}`)
+            // Setting headers for POST method
+            ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            // Sending image data to server
+            ajax.send("image=" + canvas.toDataURL("image/jpeg", 0.9));
+            // Receiving response from server
+            // This function will be called multiple times
+            ajax.onreadystatechange = function () {
+                // Check when the requested is completed
+                if (this.readyState == 4 && this.status == 200) {
+                    console.log(this.responseText);
+                }
+            };
+        });
+    }
+        exportBtn.addEventListener('click', () => {
+            document.querySelector(".snip").style.borderRadius = '0px'
+            doCaptureTest();
+            document.querySelector(".snip").style.borderRadius = '8px'
+        })
+    </script>
     <script>
         const surahOpt = document.querySelector('.surah-options'),
         selectBtn = surahOpt.querySelector('.select-btn'),
@@ -154,7 +208,7 @@
         searchInp = surahOpt.querySelector('input'),
         surahNamesDiv = surahOpt.querySelector('.options ul')
         let surahNames;
-
+        let versesLi;
         const surahName = document.querySelector('.snip .surah-name')
 
         selectBtn.addEventListener('click', () => {
@@ -196,6 +250,9 @@
                                 surah.id = `${surah.id}`
                             }
                             surahName.textContent = surah.id;
+                            // const basmala = document.createElement('img')
+                            // basmala.src = "../images/basmala.png"
+                            // snip.append(basmala);
                             
                             const from = document.createElement('div')
                             from.classList.add('from')
@@ -206,11 +263,12 @@
                             const fromInp = document.createElement('input')
                             const row = document.createElement('div')
                             row.classList.add('row')
+                            row.classList.add('row-from')
                             fromInp.setAttribute('placeholder', 'Enter Verse Number')
                             const fromIcon = document.createElement('i')
                             fromIcon.classList.add('fa-solid')
                             fromIcon.classList.add('fa-check')
-                            fromInp.setAttribute('type', 'text')
+                            fromInp.setAttribute('type', 'number')
                             fromLabel.classList.add('title')
                             fromLabel.innerHTML = 'Ayat From:'
                             fromOptions.append(fromUL)
@@ -225,10 +283,10 @@
                                 .then(res => res.json())
                                 .then(data => {
                                     data[surah.getAttribute('id2')].forEach(post => {
-                                    fromUL.insertAdjacentHTML('beforeend', `<li>(${post.verse}) ${post.text}<li>`)
-                                        document.querySelectorAll('.from ul li').forEach(li => {
+                                    fromUL.insertAdjacentHTML('beforeend', `<li>${post.text} (${post.verse})<li>`)
+                                        versesLi = document.querySelectorAll('.from ul li');
+                                        versesLi.forEach(li => {
                                             if(li.textContent == '') {
-                                                console.log(li);
                                                 li.remove()
                                             }
                                         });
@@ -238,21 +296,117 @@
                                     let arrFr = []
                                     let arr = []
                                     let searchVal = fromInp.value.toLowerCase();
-                                    document.querySelectorAll('.from ul li').forEach(verse => {
+                                    versesLi.forEach(verse => {
                                         arrFr.push(verse.textContent)
-                                        if(arrFr.length == document.querySelectorAll('.from ul li').length) {
-                                            console.log(arr);
-                                            arr = arrFr.filter(data => {
-                                                return data.toLowerCase().startsWith(searchVal)
-                                            }).map(data => `<li>${data}</li>`).join()
-                                            fromUL.innerHTML = arr ? arr : `<p>Opp! No Verse With That Name</p>`;
-                                        }
+                                        arr = arrFr.filter(data => {
+                                            return data.toLowerCase().includes(searchVal);
+                                        }).map(data => `<li>${data}</li>`).join(' ')
+                                        fromUL.innerHTML = arr ? arr : `<p>Opp! No Verse With That Name</p>`;
                                     });
                                 })
+                                fromIcon.addEventListener('click', () => {
+                                    if(fromInp.value != '') {
+                                        document.querySelector('.row-from input').removeAttribute('type')
+                                        document.querySelector('.row-from input').setAttribute('type', 'text');
+                                        document.querySelector('.row-from input ').setAttribute('readonly', true);
+                                        document.querySelector('.from').remove();
+
+
+                                        const to = document.createElement('div')
+                                        to.classList.add('to')
+                                        const toOptions = document.createElement('div')
+                                        toOptions.classList.add('options')
+                                        const toUL = document.createElement('ul')
+                                        const toLabel = document.createElement('div')
+                                        const toInp = document.createElement('input')
+                                        const row = document.createElement('div')
+                                        row.classList.add('row')
+                                        row.classList.add('row-to')
+                                        toInp.setAttribute('placeholder', 'Enter Verse Number')
+                                        const toIcon = document.createElement('i')
+                                        toIcon.classList.add('fa-solid')
+                                        toIcon.classList.add('fa-check')
+                                        toInp.setAttribute('type', 'number')
+                                        toLabel.classList.add('title')
+                                        toLabel.innerHTML = 'Ayat to:'
+                                        toOptions.append(toUL)
+                                        row.append(toInp)
+                                        row.append(toIcon)
+                                        to.append(row)
+                                        to.append(toOptions)
+                                        document.querySelector('.surah-options .chooser .wrapper').append(toLabel)
+                                        document.querySelector('.surah-options .chooser .wrapper').append(row)
+                                        document.querySelector('.surah-options .chooser .wrapper').append(to)
+                                        fetch('data/quran_ar.json')
+                                            .then(res => res.json())
+                                            .then(data => {
+                                                data[surah.getAttribute('id2')].forEach(post => {
+                                                    if(post.verse >= fromInp.value ? post.verse : '') {
+                                                        toUL.insertAdjacentHTML('beforeend', `<li>${post.text} (${post.verse})<li>`)
+                                                    }else {
+                                                        return '' 
+                                                    }
+                                                    versesLi = document.querySelectorAll('.to ul li');
+                                                    versesLi.forEach(li => {
+                                                        if(li.textContent == '') {
+                                                            li.remove()
+                                                        }
+                                                    });
+                                                })
+                                            })
+                                            toInp.addEventListener('keyup', () => {
+                                                let arrFr = []
+                                                let arr = []
+                                                let searchVal = toInp.value.toLowerCase();
+                                                versesLi.forEach(verse => {
+                                                    arrFr.push(verse.textContent)
+                                                    arr = arrFr.filter(data => {
+                                                        return data.toLowerCase().includes(searchVal);
+                                                    }).map(data => `<li>${data}</li>`).join(' ')
+                                                    toUL.innerHTML = arr ? arr : `<p>Opp! No Verse With That Name</p>`;
+                                                });
+                                            })
+                                            toIcon.addEventListener('click', () => {
+                                                document.querySelector('.row-to input').removeAttribute('type')
+                                                document.querySelector('.row-to input').setAttribute('type', 'text');
+                                                document.querySelector('.row-to input ').setAttribute('readonly', true);
+                                                document.querySelector('.to').remove();
+
+                                                fetch('data/quran_ar.json')
+                                                .then(res => res.json())
+                                                .then(data => {
+                                                    const versesRow = document.createElement('div')
+                                                    versesRow.id = 'row-verses'
+                                                    versesRow.classList.add('row')
+                                                    const versesTxt = document.createElement('p')
+                                                    versesTxt.classList.add('verse');
+                                                    data[surah.getAttribute('id2')].forEach(post => {
+                                                        if(post.verse >= fromInp.value  && post.verse <= toInp.value) {
+                                                            // console.log(post == );
+                                                            let verseArr = ['1','2','3', '4','5','6','7','8','9'];
+                                                            let verseArrAr = ['&#x0661;', '&#x0662;' , '&#x0663;' , '&#x0664;', '&#x0665;' , '&#x0666;', '&#x0667;', '&#x0668;', '&#x0669;'];
+                                                            // for (let i = 0; i < verseArr.length; i++) {
+                                                                //     if(post.verse.toString().includes(verseArr[i])) {
+                                                                    //         verseArr = ['&#x0661;', '&#x0662;' , '&#x0663;' , '&#x0664;', '&#x0665;' , '&#x0666;', '&#x0667;', '&#x0668;', '&#x0669;']
+                                                                    //         post.verse[i] = verseArr; 
+                                                                    //         console.log(post.verse[i]);
+                                                                    //     }
+                                                                    // }
+                                                                    // versesTxt.innerHTML = `${post.text} <span class="verse-frame">${post.verse == verseArr ? verseArrAr : ''}</span>`
+                                                            versesTxt.innerHTML += `${post.text} <span class="verse-frame">${post.verse}</span>`
+                                                            versesRow.append(versesTxt)
+                                                            snip.append(versesRow)
+                                                        }
+                                                    })
+                                                })
+                                            })
+                                    }else {
+                                        alert('You Have To Enter A Number')
+                                    }
                                 })
+                            })
                         surah.onclick = () => {
                             content.remove()
-                            // content.classList.remov('active')
                         }
                     })
                 }
@@ -320,14 +474,14 @@
             snip.style.width = `${width.value}px`;
             console.log(width.value);
         })
-        width.addEventListener('keydown', () => {
+        width.addEventListener('keyup', () => {
             snip.style.width = `${width.value}px`;
         })
         height.addEventListener('change', () => {
-            snip.style.height = `${height.valu}px`;
+            snip.style.height = `${height.value}px`;
         })
-        height.addEventListener('keydown', () => {
-            snip.style.height = `${height.valu}px`;
+        height.addEventListener('keyup', () => {
+            snip.style.height = `${height.value}px`;
         })
 
         // const suggestedColors = document.querySelectorAll('.suggested-color')

@@ -65,14 +65,20 @@
             </div>
             <div class="styler">
                 <div class="title">Background</div>
-                <div class="row">
-                    <div class="column">
-                        <label for="">width</label>
-                        <input type="number" id="width" value="600">
+                <div class="column" id="column-width">
+                    <div class="row">
+                        <div class="column">
+                            <label for="">width</label>
+                            <input type="number" id="width" value="600">
+                        </div>
+                        <div class="column">
+                            <label for="">height</label>
+                            <input type="number" id="height" value="700">
+                        </div>
                     </div>
                     <div class="column">
-                        <label for="">height</label>
-                        <input type="number" id="height" value="700">
+                        <label for="">Font Size</label>
+                        <input type="number" placeholder="Font Size With PX" id="fontSize" value="20">
                     </div>
                 </div>
                 <div class="title">Fill</div>
@@ -416,6 +422,7 @@
         const snip = document.getElementById('snip')
         const surahFrame = document.querySelector('#surah-frame')
         const width = document.getElementById('width')
+        const fontSize = document.getElementById('fontSize')
         const height = document.getElementById('height')
         const removeGallery = document.getElementById('close-gallery');
         const removePicker = document.getElementById('close-picker');
@@ -473,6 +480,16 @@
         });
         colorPickerDiv.addEventListener('click', () => {
             colorOptions.classList.remove('close')
+        })
+        fontSize.addEventListener('change', () => {
+            document.querySelectorAll('.snip .verse').forEach(verse => {
+                verse.style.fontSize = `${fontSize.value}px`;
+            })
+        })
+        fontSize.addEventListener('keyup', () => {
+            document.querySelectorAll('.snip .verse').forEach(verse => {
+                verse.style.fontSize = `${fontSize.value}px`;
+            })
         })
         width.addEventListener('change', () => {
             snip.style.width = `${width.value}px`;

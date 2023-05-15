@@ -234,13 +234,13 @@ button {
 			padding: 0 1rem;
 			direction: rtl;
 			.verse {
+				font-size: 20px;
 				font-family: 'quran';
 				font-size: 3.2rem;
 				font-weight: bold;
 				line-height: 2;
 				.verse-frame{
 					margin: 0 !important;
-					font-size: 22px;
 					padding: 1rem 2rem;
 					background-image: url(../images/verse/verse-frame-brown.png);
 					background-repeat: no-repeat;
@@ -253,7 +253,7 @@ button {
 		}
     }
     .styler {
-        .row {
+        #column-width {
             display: flex;
             justify-content: center;
             align-items: center;

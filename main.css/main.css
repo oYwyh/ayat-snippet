@@ -336,6 +336,7 @@ button {
   direction: rtl;
 }
 .wrapper .snip #row-verses .verse {
+  font-size: 20px;
   font-family: "quran";
   font-size: 3.2rem;
   font-weight: bold;
@@ -343,7 +344,6 @@ button {
 }
 .wrapper .snip #row-verses .verse .verse-frame {
   margin: 0 !important;
-  font-size: 22px;
   padding: 1rem 2rem;
   background-image: url(../images/verse/verse-frame-brown.png);
   background-repeat: no-repeat;
@@ -353,7 +353,7 @@ button {
   -o-object-fit: cover;
      object-fit: cover;
 }
-.wrapper .styler .row {
+.wrapper .styler #column-width {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -365,14 +365,14 @@ button {
           align-items: center;
   gap: 3rem;
 }
-.wrapper .styler .row .column {
+.wrapper .styler #column-width .column {
   gap: 0.5rem;
 }
-.wrapper .styler .row .column label {
+.wrapper .styler #column-width .column label {
   font-size: 16px;
   font-weight: bold;
 }
-.wrapper .styler .row .column input {
+.wrapper .styler #column-width .column input {
   border-radius: 5px;
   border: 1px solid black;
   width: 100px;

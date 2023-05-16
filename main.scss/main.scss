@@ -58,6 +58,7 @@ button {
 	background-color: #2a6baf;
 }
 .header {
+	position: relative;
 	padding: 1.5rem 3rem 0.5rem 3rem;
 	display: flex;
 	justify-content: space-between;
@@ -67,6 +68,40 @@ button {
 		font-weight: bolder;
 		span {
 			color: #2a6baf;
+		}
+	}
+	.theme-gallery {
+		display: none;
+		right: 0;
+		position: absolute;
+		gap: 3rem;
+		box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+		background-color: white;
+		border-radius: 5px;
+		width: 650px;
+		z-index: 100;
+		right: 2rem;
+		text-align: center;
+		top: 5rem;
+		&.active {
+			display: block;
+		}
+		.theme {
+			padding: 2rem 3rem;
+			width: 100%;
+			height: 100%;
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			gap: 3rem;
+			img {
+				cursor: pointer;
+				max-width: 100%;
+				width: 20rem;
+				height: 10rem;
+				box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+				border-radius: 5px;
+			}
 		}
 	}
 }
@@ -231,21 +266,28 @@ button {
 			justify-content: center;
 			align-items: center;
 			flex-wrap: wrap;
-			padding: 0 1rem;
+			// padding: 0 1rem;
 			direction: rtl;
+			width: 100%;
+			gap: 0;
 			.verse {
-				font-size: 20px;
 				font-family: 'quran';
-				font-size: 3.2rem;
+				font-size: 3.3rem;
 				font-weight: bold;
 				line-height: 2;
+				width: 100%;
+				gap: 0;	
+				p {
+					display: inline-block;
+				}
 				.verse-frame{
-					margin: 0 !important;
-					padding: 1rem 2rem;
-					background-image: url(../images/verse/verse-frame-brown.png);
+					font-size: 2rem;
+					padding: 0.6rem 1.2rem;
+					background-position-y: -3px ;
+					background-image: url(../images/verse/brown.png);
 					background-repeat: no-repeat;
+					width: fit-content;
 					background-size: cover;
-					background-position-y: -6px;
 					text-align: center;
 					object-fit: cover;
 				}
@@ -375,6 +417,7 @@ button {
 	}
 	.container {
 		display: block;
+		overflow-y: scroll;
 		opacity: 1;
 		background-color: white;
 		width: 1500px;

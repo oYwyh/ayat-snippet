@@ -221,14 +221,12 @@ fetch('data/quran_chapters.json')
                                             versesTxt.classList.add('verse');
                                             data[surah.getAttribute('id2')].forEach(post => {
                                                 if(post.verse >= fromInp.value  && post.verse <= toInp.value) {
-                                                    // console.log(post == );
                                                     let verseArr = ['1','2','3', '4','5','6','7','8','9'];
                                                     let verseArrAr = ['&#x0661;', '&#x0662;' , '&#x0663;' , '&#x0664;', '&#x0665;' , '&#x0666;', '&#x0667;', '&#x0668;', '&#x0669;'];
                                                     // for (let i = 0; i < verseArr.length; i++) {
                                                         //     if(post.verse.toString().includes(verseArr[i])) {
                                                             //         verseArr = ['&#x0661;', '&#x0662;' , '&#x0663;' , '&#x0664;', '&#x0665;' , '&#x0666;', '&#x0667;', '&#x0668;', '&#x0669;']
                                                             //         post.verse[i] = verseArr; 
-                                                            //         console.log(post.verse[i]);
                                                             //     }
                                                             // }
                                                             // versesTxt.innerHTML = `${post.text} <span class="verse-frame">${post.verse == verseArr ? verseArrAr : ''}</span>`
@@ -258,7 +256,6 @@ fetch('data/quran_chapters.json')
                                                             if(verse.textContent == mArr[i]) {
                                                                 // verse.style.fontSize = '18px !important'
                                                                 verse.style.padding = '0.3rem 0.6rem';
-                                                                console.log(verse.style);
                                                             }
                                                         }
                                                         for (let i = 0; i < lArr.length; i++) {
@@ -294,14 +291,6 @@ const removePicker = document.getElementById('close-picker');
 const colorOptions = document.getElementById('color-options');
 const colorPickerDiv = document.querySelector('.color-picker-div')
 colorPickerDiv.style.background = window.getComputedStyle(snip).backgroundColor;
-const imgsGallery = document.querySelector('.imgs-gallery')
-const galleryLinks = document.querySelectorAll('.imgs-gallery ul li')
-const imagesBox = document.querySelectorAll('.images-box')
-const imgsBg = document.querySelectorAll('.images-box[data-img="bg"] img')
-const imgsFrame = document.querySelectorAll('.images-box[data-img="frame"] img')
-const imgsVerseFrame = document.querySelectorAll('.images-box[data-img="verse-frame"] img')
-const imgChooser = document.querySelector('.img-chooser')
-const imgOptions = document.querySelectorAll('.options li[data-img]')
 const hexColor = document.querySelector('.hex-color')
 const hexColorDiv = document.querySelector('.hex-color-div')
 const check = document.querySelector('.check')
@@ -316,44 +305,21 @@ selectColor.addEventListener('change', () => {
         surahName.style.color = selectColor.value;
     }
 })
-
 check.addEventListener('click', () => {
     hexColorDiv.style.background = hexColor.value;
     snip.style.background = hexColor.value;
     colorPickerDiv.style.background = hexColor.value;
 })
-
 removePicker.addEventListener('click', () => {
     colorOptions.classList.add('close')
 })
-
 removeGallery.addEventListener('click', () => {
     imgsGallery.classList.add('close')
 })
 
-imgChooser.addEventListener('click', () => {
-    imgsGallery.classList.remove('close')
-})
 
-console.log(imgOptions);
 
-imgOptions.forEach(opt => {
-    opt.addEventListener('click', () => {
-        if(opt.getAttribute('data-img') == 'bg') {
-            imagesBox.forEach(box => {
-                box.getAttribute('data-img') == 'bg' ? box.classList.remove('none') : box.classList.add('none')
-            });
-        }else if(opt.getAttribute('data-img') == 'frame'){
-            imagesBox.forEach(box => {
-                box.getAttribute('data-img') == 'frame' ? box.classList.remove('none') : box.classList.add('none')
-            });
-        }else {
-            imagesBox.forEach(box => {
-                box.getAttribute('data-img') == 'verse-frame' ? box.classList.remove('none') : box.classList.add('none')
-            });
-        }
-    })
-});
+
 colorPickerDiv.addEventListener('click', () => {
     colorOptions.classList.remove('close')
 })
@@ -369,7 +335,6 @@ fontSize.addEventListener('keyup', () => {
 })
 width.addEventListener('change', () => {
     snip.style.width = `${width.value}px`;
-    console.log(width.value);
 })
 width.addEventListener('keyup', () => {
     snip.style.width = `${width.value}px`;
@@ -452,19 +417,59 @@ document.querySelector('.copy').addEventListener('click', () => {
 })
 const cp = new ColorPicker(document.querySelector(".color-container"));
 
+const imgsGallery = document.querySelector('.imgs-gallery')
+const galleryLinks = document.querySelectorAll('#gallery-links li')
+const imagesBox = document.querySelectorAll('.images-box')
+const imgsBg = document.querySelectorAll('.images-box[data-img="bg"] img')
+const imgsFrame = document.querySelectorAll('.images-box[data-img="frame"] img')
+const imgsVerseFrame = document.querySelectorAll('.images-box[data-img="verse-frame"] img')
+const imgChooser = document.querySelector('.img-chooser')
+const imgOptions = document.querySelectorAll('.options li[data-img]')
 
+// const imgsBgCustom = document.querySelectorAll('.images-box[data-img="bg"] img')
+// const imgsFrameCustom = document.querySelectorAll('.images-box[data-img="frame"] img')
+// const imgsVerseFrameCustom = document.querySelectorAll('.images-box[data-img="verse-frame"] img')
+// const imgOptionsCustom = document.querySelectorAll('.options li[data-img-custom]')
+// const imagesBoxCustom = document.querySelectorAll('.wrapper[data-type="custom"] .images-box')
+
+imgChooser.addEventListener('click', () => {
+    imgsGallery.classList.remove('close')
+})
+imgOptions.forEach(opt => {
+    opt.addEventListener('click', () => {
+        if(opt.getAttribute('data-img') == 'bg') {
+            imagesBox.forEach(box => {
+                box.getAttribute('data-img') == 'bg' ? box.classList.remove('none') : box.classList.add('none')
+            });
+        }else if(opt.getAttribute('data-img') == 'frame'){
+            imagesBox.forEach(box => {
+                box.getAttribute('data-img') == 'frame' ? box.classList.remove('none') : box.classList.add('none')
+            });
+        }else {
+            imagesBox.forEach(box => {
+                box.getAttribute('data-img') == 'verse-frame' ? box.classList.remove('none') : box.classList.add('none')
+            });
+        }
+    })
+});
 galleryLinks.forEach(link => {
     link.addEventListener('click', () => {
         for (let i = 0; i < galleryLinks.length; i++) {
             galleryLinks[i].classList.remove('active')
         }
         link.classList.add('active')
+        console.log(link);
+        if(link.getAttribute('data-type') == 'normal') {
+            document.querySelector('.wrapper[data-type="custom"]').classList.remove('active')
+            document.querySelector('.wrapper[data-type="normal"]').classList.add('active')
+        }else {
+            document.querySelector('.wrapper[data-type="normal"]').classList.remove('active')
+            document.querySelector('.wrapper[data-type="custom"]').classList.add('active')
+        }
     })
 });
-
 imgsBg.forEach(img => {
     img.addEventListener('click', () => {
-        console.log(img.src);
         imgsGallery.classList.add('close')
         imgChooser.style.background = `url("${img.src}")`
         snip.style.background = `url("${img.src}")`
@@ -472,15 +477,12 @@ imgsBg.forEach(img => {
 });
 imgsFrame.forEach(img => {
     img.addEventListener('click', () => {
-        console.log(img.src);
         imgsGallery.classList.add('close')
-        console.log(surahFrame);
         surahFrame.src = `${img.src}`
     })
 });
 imgsVerseFrame.forEach(img => {
     img.addEventListener('click', () => {
-        console.log(img.src);
         imgsGallery.classList.add('close')
         document.querySelectorAll('.verse-frame').forEach(frame => {
             frame.style.backgroundImage = `url(${img.src})`
@@ -488,13 +490,57 @@ imgsVerseFrame.forEach(img => {
     })
 });
 
+// imgOptionsCustom.forEach(opt => {
+//     opt.addEventListener('click', () => {
+//         if(opt.getAttribute('data-img-custom') == 'bg') {
+//             imagesBox.forEach(box => {
+//                 box.getAttribute('data-img-custom') == 'bg' ? box.classList.remove('none') : box.classList.add('none')
+//             });
+//         }else if(opt.getAttribute('data-img-custom') == 'frame'){
+//             imagesBox.forEach(box => {
+//                 box.getAttribute('data-img-custom') == 'frame' ? box.classList.remove('none') : box.classList.add('none')
+//             });
+//         }else {
+//             imagesBox.forEach(box => {
+//                 box.getAttribute('data-img-custom') == 'verse-frame' ? box.classList.remove('none') : box.classList.add('none')
+//             });
+//         }
+//     })
+// });
+// imgsBgCustom.forEach(img => {
+//     img.addEventListener('click', () => {
+//         imgsGallery.classList.add('close')
+//         imgChooser.style.background = `url("${img.src}")`
+//         snip.style.background = `url("${img.src}")`
+//     })
+// });
+// imgsFrameCustom.forEach(img => {
+//     img.addEventListener('click', () => {
+//         imgsGallery.classList.add('close')
+//         surahFrame.src = `${img.src}`
+//     })
+// });
+// imgsVerseFrameCustom.forEach(img => {
+//     img.addEventListener('click', () => {
+//         imgsGallery.classList.add('close')
+//         document.querySelectorAll('.verse-frame').forEach(frame => {
+//             frame.style.backgroundImage = `url(${img.src})`
+//         })
+//     })
+// });
+
+
+
+
+
+
+
+
+
+
+
 if(document.querySelectorAll('.verse-frame').length != 0) {
-    console.log(document.querySelectorAll('.verse-frame').length);
-    console.log(document.querySelectorAll('.verse-frame'));
-
 }
-
-
 document.querySelectorAll('.verse-frame').forEach(verse => {
     let sArr = [];
     let mArr = [];
@@ -518,7 +564,6 @@ document.querySelectorAll('.verse-frame').forEach(verse => {
         if(verse.textContent == mArr[i]) {
             // verse.style.fontSize = '18px !important'
             verse.style.padding = '0.3rem 0.6rem';
-            console.log(verse.style);
         }
     }
     for (let i = 0; i < lArr.length; i++) {

@@ -57,27 +57,13 @@
                 <div class="snip" id="snip">
                     <div class="column">
                         <img src="images/frame/brown.png" id="surah-frame" alt="">
-                        <div class="surah-name"></div>
+                        <div class="surah-name">001surah</div>
                     </div>
                     <div class="basmala">
                         <img src="../images/basmala.png" alt="">
                         <!-- <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Basmala.svg" alt="alt"> -->
                     </div>
-                    <div id="row-verses" class="row">
-                        <div class="verse">
-                            وَٱلضُّحَىٰ 
-                            <span class="verse-frame" style="background-position-x: -1px;">1</span>
-                            وَٱلَّيۡلِ إِذَا سَجَىٰ 
-                            <span class="verse-frame" style="background-position-x: -1px;">2</span>
-                            مَا وَدَّعَكَ رَبُّكَ وَمَا قَلَىٰ 
-                            <span class="verse-frame" style="background-position-x: -1px;">3</span>
-                            وَلَلۡأٓخِرَةُ خَيۡرٞ لَّكَ مِنَ ٱلۡأُولَىٰ 
-                            <span class="verse-frame" style="background-position-x: -1px;">4</span>
-                            وَلَسَوۡفَ يُعۡطِيكَ رَبُّكَ فَتَرۡضَىٰٓ 
-                            <span class="verse-frame" style="background-position-x: -1px;">5</span>
-                            أَلَمۡ يَجِدۡكَ يَتِيمٗا فَـَٔاوَىٰ 
-                            <span class="verse-frame" style="background-position-x: -1px;">6</span>
-                        </div>
+                    <div id="row-verses">
                     </div>
                 </div>
             </div>
@@ -165,11 +151,11 @@
         <div class="container">
             <div class="close" id="close-gallery"><i class="fa-solid fa-xmark"></i></div>
             <div class="title">Add Media</div>
-            <ul>
-                <li>Library</li>
-                <li>Custom Images</li>
+            <ul id="gallery-links">
+                <li data-type="normal">Library</li>
+                <li data-type="custom">Custom Images</li>
             </ul>
-            <div class="wrapper">
+            <div class="wrapper active" data-type="normal">
                     <ul class="options">
                         <li data-img="bg">Backgrounds</li>
                         <li data-img="frame">Frames</li>
@@ -187,6 +173,31 @@
                     <img src="images/frame/green.png" alt="">
                 </div>
                 <div class="images-box none" data-img="verse-frame">
+                    <img src="images/verse/brown.png" alt="">
+                    <img src="images/verse/white.png" alt="">
+                    <img src="images/verse/blue.png" alt="">
+                    <img src="images/verse/green.png" alt="">
+                    <img src="images/verse/verse2.png" alt="">
+                    <img src="images/verse/verse4.png" alt="">
+                </div>
+            </div>
+            <div class="wrapper" data-type="custom">
+                    <ul class="options">
+                        <li data-img-custom="bg">Backgrounds</li>
+                        <li data-img-custom="frame">Frames</li>
+                        <li data-img-custom="verse-frame">Verse Frames</li>
+                    </ul>
+                <div class="images-box" data-img-custom="bg">
+                    <img src="images/bg/paper2.jpeg" alt="">
+                </div>
+                <div class="images-box none" data-img-custom="frame">
+                    <img src="images/frame/brown.png" alt="">
+                    <img src="images/frame/white.png" alt="">
+                    <img src="images/frame/blue.png" alt="">
+                    <img src="images/frame/coffe.png" alt="">
+                    <img src="images/frame/green.png" alt="">
+                </div>
+                <div class="images-box none" data-img-custom="verse-frame">
                     <img src="images/verse/brown.png" alt="">
                     <img src="images/verse/white.png" alt="">
                     <img src="images/verse/blue.png" alt="">

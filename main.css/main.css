@@ -19,7 +19,6 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   color: black;
   background-color: #f1f1f1;
-  height: 100vh;
 }
 
 .row {
@@ -76,6 +75,27 @@ button {
 .secondary {
   color: #fff;
   background-color: #2a6baf;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(20, 54, 114, 0.2901960784);
+  position: absolute;
+  inset: 0px;
+  border-width: 2px;
+  border-style: solid;
+  border-image: initial;
+  border-color: #7191cc;
+  border-radius: 25px;
 }
 
 .header {
@@ -142,17 +162,14 @@ button {
 }
 
 .wrapper {
-  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  position: relative;
   gap: 5rem;
   height: 100%;
   width: 100%;
-  margin-top: 2rem;
+  margin-top: 0rem;
   padding: 0 1rem;
 }
 .wrapper .surah-options .chooser .wrapper {
@@ -315,13 +332,15 @@ button {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   width: 100%;
-  height: 100%;
+  overflow-y: scroll;
+  overflow-x: scroll;
+  max-height: 800px;
+  max-width: 800px;
+  padding: 5rem 0;
 }
 .wrapper .snip {
+  position: relative;
   background: #e4d0b7;
   -o-object-fit: cover;
      object-fit: cover;
@@ -344,9 +363,9 @@ button {
   gap: 0 !important;
 }
 .wrapper .snip .column .surah-name {
-  font-family: "surahnames";
   font-size: 45px;
   position: absolute;
+  font-family: "surahnames";
 }
 .wrapper .snip .column img {
   max-width: 100%;
@@ -360,6 +379,8 @@ button {
   padding: 1rem 0 1rem 0;
 }
 .wrapper .snip #row-verses {
+  width: 100%;
+  margin: auto;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -375,8 +396,8 @@ button {
           align-items: center;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  padding: 0 1rem;
   direction: rtl;
-  width: 100%;
   gap: 0;
 }
 .wrapper .snip #row-verses .verse {
@@ -502,7 +523,7 @@ button {
   border-radius: 8px;
   -webkit-box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
           box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  height: 100%;
+  height: 50vh;
   width: 500px;
   background-color: white;
 }
@@ -583,9 +604,7 @@ button {
   border-bottom: 3px #2a6baf solid;
 }
 .imgs-gallery .container .wrapper {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  display: none;
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
@@ -597,6 +616,11 @@ button {
       -ms-flex-direction: row;
           flex-direction: row;
   gap: 5rem;
+}
+.imgs-gallery .container .wrapper.active {
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
 }
 .imgs-gallery .container .wrapper .options {
   display: -webkit-box;

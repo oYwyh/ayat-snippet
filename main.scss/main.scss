@@ -18,7 +18,6 @@ body {
 	font-family: Arial, Helvetica, sans-serif;
 	color: black;
 	background-color: #f1f1f1;
-	height: 100vh;
 }
 .row {
     display: flex;
@@ -57,6 +56,24 @@ button {
 	color: #fff;
 	background-color: #2a6baf;
 }
+::-webkit-scrollbar {
+	width: 10px;
+	transition: 0.3s;
+}
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+::-webkit-scrollbar-thumb {
+	background-color: #1436724a;
+    position: absolute;
+    inset: 0px;
+    border-width: 2px;
+    border-style: solid;
+    border-image: initial;
+    border-color:  #7191cc;
+    border-radius: 25px;
+}
+// Start Header
 .header {
 	position: relative;
 	padding: 1.5rem 3rem 0.5rem 3rem;
@@ -105,14 +122,15 @@ button {
 		}
 	}
 }
+// End Header
+// Start Section
 .wrapper {
-	position: relative;
 	display: flex;
-	align-items: center;
+	position: relative;
 	gap: 5rem;
     height: 100%;
     width: 100%;
-    margin-top: 2rem;
+    margin-top: 0rem;
     padding: 0 1rem;
 	.surah-options {
 		.chooser {
@@ -225,11 +243,16 @@ button {
     .snippet {
         display: flex;
         justify-content: center;
-        align-items: center;
         width: 100%;
-        height: 100%;
+		overflow-y: scroll;
+		overflow-x: scroll;
+		max-height: 800px;
+		max-width: 800px;
+		padding: 5rem 0;
+		
     }
     .snip {
+		position: relative;
         background: #e4d0b7;
 		object-fit: cover;
         background-size: cover;
@@ -241,12 +264,12 @@ button {
 		.column {
 			justify-content: center;
 			align-items: center;
-				padding: 4rem 2rem 0rem 2rem;
-				gap: 0 !important;
+			padding: 4rem 2rem 0rem 2rem;
+			gap: 0 !important;
 			.surah-name {
-				font-family: 'surahnames';
 				font-size: 45px;
 				position: absolute;
+				font-family: 'surahnames';
 			}
 			img {
 				max-width: 100%;
@@ -261,14 +284,15 @@ button {
 			}
 		}
 		#row-verses {
+			width: 100%;
+			margin: auto;
 			display: flex;
 			flex-direction: row;
 			justify-content: center;
 			align-items: center;
 			flex-wrap: wrap;
-			// padding: 0 1rem;
+			padding: 0 1rem;
 			direction: rtl;
-			width: 100%;
 			gap: 0;
 			.verse {
 				font-family: 'quran';
@@ -383,7 +407,7 @@ button {
     .styler {
         border-radius: 8px;
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-        height: 100%;
+        height: 50vh;
         width: 500px;
         background-color: white;
         .title {
@@ -448,11 +472,14 @@ button {
 			}
 		}
 		.wrapper {
-			display: flex;
+			display: none;
 			justify-content: flex-start;
 			align-items: flex-start;
 			flex-direction: row;
 			gap: 5rem;
+			&.active {
+				display: flex !important;
+			}
 			.options {
 				display: flex;
 				flex-direction: column;
@@ -567,3 +594,4 @@ button {
 		margin-bottom: 5px;
 	}
 }
+// End Section

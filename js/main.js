@@ -1,3 +1,6 @@
+
+
+console.log();
 const exportBtn = document.getElementById('export');
 const themeBtn = document.getElementById('themeBtn')
 const themeGallery = document.getElementById('theme-gallery')
@@ -28,7 +31,17 @@ const themes = document.querySelectorAll('.theme-gallery .theme img');
 
 themes.forEach(theme => {
     theme.addEventListener('click', () => {
-    if(document.querySelectorAll('.verse-frame').length != 0) {
+        themeGallery.classList.remove('active')
+        if(document.querySelectorAll('.verse-frame').length != 0) {
+            if(theme.getAttribute('data-color') == '000') {
+                document.querySelector('.surah-name').style.color = '#dfdfdf';
+                document.querySelector('.snip').style.color = '#dfdfdf'
+                document.querySelector('.basmala  img').src = '../images/basmala-white.png';
+            }else {
+                document.querySelector('.surah-name').style.color = '#000';
+                document.querySelector('.snip').style.color = '#000'
+                document.querySelector('.basmala  img').src = '../images/basmala.png';
+            }
             snip.style.background = `#${theme.getAttribute('data-color')}`
             document.querySelector('#surah-frame').src = theme.getAttribute('data-frame')
             document.querySelectorAll('.verse-frame').forEach(verse => {
@@ -209,15 +222,16 @@ fetch('data/quran_chapters.json')
                                         document.querySelector('.row-to input').removeAttribute('type')
                                         document.querySelector('.row-to input').setAttribute('type', 'text');
                                         document.querySelector('.row-to input ').setAttribute('readonly', true);
+                                        document.querySelector('.chooser .wrapper').remove()
                                         document.querySelector('.to').remove();
-
+                                        
                                         fetch('data/quran_ar.json')
                                         .then(res => res.json())
                                         .then(data => {
                                             const versesRow = document.createElement('div')
                                             versesRow.id = 'row-verses'
                                             versesRow.classList.add('row')
-                                            const versesTxt = document.createElement('p')
+                                            const versesTxt = document.createElement('div')
                                             versesTxt.classList.add('verse');
                                             data[surah.getAttribute('id2')].forEach(post => {
                                                 if(post.verse >= fromInp.value  && post.verse <= toInp.value) {
@@ -230,42 +244,42 @@ fetch('data/quran_chapters.json')
                                                             //     }
                                                             // }
                                                             // versesTxt.innerHTML = `${post.text} <span class="verse-frame">${post.verse == verseArr ? verseArrAr : ''}</span>`
-                                                    versesTxt.innerHTML += `${post.text} <span class="verse-frame">${post.verse}</span>`
+                                                    versesTxt.innerHTML += `<p>${post.text}</p> <span class="verse-frame"></span>`
                                                     versesRow.append(versesTxt)
                                                     snip.append(versesRow)
-                                                    document.querySelectorAll('.verse-frame').forEach(verse => {
-                                                        let sArr = [];
-                                                        let mArr = [];
-                                                        let lArr = [];
-                                                        for (let i = 1; i <= 9; i++) {
-                                                            sArr.push(i)
-                                                        }
-                                                        for (let i = 10; i <= 99; i++) {
-                                                            mArr.push(i)
-                                                        }
-                                                        for (let i = 100; i <= 286; i++) {
-                                                            lArr.push(i)
-                                                        }
+                                                    // document.querySelectorAll('.verse-frame').forEach(verse => {
+                                                    //     let sArr = [];
+                                                    //     let mArr = [];
+                                                    //     let lArr = [];
+                                                    //     for (let i = 1; i <= 9; i++) {
+                                                    //         sArr.push(i)
+                                                    //     }
+                                                    //     for (let i = 10; i <= 99; i++) {
+                                                    //         mArr.push(i)
+                                                    //     }
+                                                    //     for (let i = 100; i <= 286; i++) {
+                                                    //         lArr.push(i)
+                                                    //     }
                                                     
-                                                        for (let i = 0; i < sArr.length; i++) {
-                                                            if(verse.textContent == sArr[i]) {
-                                                                verse.style.backgroundPositionX = '-1px';
-                                                            }
-                                                        }
-                                                        for (let i = 0; i < mArr.length; i++) {
-                                                            if(verse.textContent == mArr[i]) {
-                                                                // verse.style.fontSize = '18px !important'
-                                                                verse.style.padding = '0.3rem 0.6rem';
-                                                            }
-                                                        }
-                                                        for (let i = 0; i < lArr.length; i++) {
-                                                            if(verse.textContent == lArr[i]) {
-                                                                verse.style.padding = '1rem 0.5rem'
-                                                                verse.style.fontSize = '16px';
-                                                            }
-                                                        }
+                                                    //     // for (let i = 0; i < sArr.length; i++) {
+                                                    //     //     if(verse.textContent == sArr[i]) {
+                                                    //     //         verse.style.backgroundPositionX = '-1px';
+                                                    //     //     }
+                                                    //     // }
+                                                    //     // for (let i = 0; i < mArr.length; i++) {
+                                                    //     //     if(verse.textContent == mArr[i]) {
+                                                    //     //         // verse.style.fontSize = '18px !important'
+                                                    //     //         verse.style.padding = '0.3rem 0.6rem';
+                                                    //     //     }
+                                                    //     // }
+                                                    //     // for (let i = 0; i < lArr.length; i++) {
+                                                    //     //     if(verse.textContent == lArr[i]) {
+                                                    //     //         verse.style.padding = '1rem 0.5rem'
+                                                    //     //         verse.style.fontSize = '16px';
+                                                    //     //     }
+                                                    //     // }
                                                     
-                                                    });
+                                                    // });
                                                 }
                                             })
                                         })
@@ -303,6 +317,11 @@ selectColor.addEventListener('change', () => {
             verse.style.color = selectColor.value;
         })
         surahName.style.color = selectColor.value;
+        if(selectColor.value = 'white') {
+            document.querySelector('.basmala img').src = '../images/basmala-white.png'
+        }else {
+            document.querySelector('.basmala img').src = '../images/basmala.png'
+        }
     }
 })
 check.addEventListener('click', () => {
@@ -574,3 +593,13 @@ document.querySelectorAll('.verse-frame').forEach(verse => {
     }
 
 });
+
+const stylerToggle = document.getElementById('styler-toggle');
+// console.log(stylerToggle);
+const styler = document.querySelector('.styler');
+stylerToggle.onclick = () => {
+    document.getElementById('column-width').classList.toggle('active')
+    document.querySelectorAll('#color-none').forEach(none => {
+        none.classList.toggle('active')
+    })
+}

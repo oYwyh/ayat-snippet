@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/colorjoe.css">
     <script src="js/colorjoe.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 </head>
 <body>
     <nav class="header">
@@ -24,6 +25,7 @@
         <div class="theme-gallery" id="theme-gallery">
             <div class="theme">
                 <img src="images/theme/theme1.png" id="brown" data-color="e4d0b7" data-frame="images/frame/brown.png" data-verse="../images/verse/brown.png"  alt="">
+                <img src="images/theme/theme6.png" id="black" data-color="000" data-frame="images/frame/black.png" data-verse="../images/verse/black.png"  alt="">
                 <img src="images/theme/theme2.png" id="white" data-color="f5f8fd" data-frame="images/frame/white.png" data-verse="../images/verse/white.png"  alt="">
                 <img src="images/theme/theme3.png" id="blue" data-color="d9f5fe" data-frame="images/frame/blue.png" data-verse="../images/verse/blue.png" alt="">
                 <img src="images/theme/theme4.png" id="coffe" data-color="f8f1d7" data-frame="images/frame/coffe.png" data-verse="../images/verse/green.png"  alt="">
@@ -63,27 +65,55 @@
                         <img src="../images/basmala.png" alt="">
                         <!-- <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Basmala.svg" alt="alt"> -->
                     </div>
-                    <div id="row-verses">
+                    <div id="row-verses" class="row">
+                        <div class="verse">
+                            <p>وَٱلضُّحَىٰ</p>
+                            <span class="verse-frame"></span>
+                            <p>وَٱلَّيۡلِ إِذَا سَجَىٰ</p>
+                            <span class="verse-frame"></span>
+                            <p>مَا وَدَّعَكَ رَبُّكَ وَمَا قَلَىٰ</p> 
+                            <span class="verse-frame"></span>
+                            <p>وَلَلۡأٓخِرَةُ خَيۡرٞ لَّكَ مِنَ ٱلۡأُولَىٰ</p> 
+                            <span class="verse-frame"></span>
+                            <p>وَلَسَوۡفَ يُعۡطِيكَ رَبُّكَ فَتَرۡضَىٰٓ</p> 
+                            <span class="verse-frame"></span>
+                            <p>أَلَمۡ يَجِدۡكَ يَتِيمٗا فَـَٔاوَىٰ</p> 
+                            <span class="verse-frame"></span>
+                            <p>وَوَجَدَكَ ضَآلّٗا فَهَدَىٰ</p> 
+                            <span class="verse-frame"></span>
+                            <p>وَوَجَدَكَ عَآئِلٗا فَأَغۡنَىٰ</p> 
+                            <span class="verse-frame"></span>
+                            <p>فَأَمَّا ٱلۡيَتِيمَ فَلَا تَقۡهَرۡ</p> 
+                            <span class="verse-frame"></span>
+                            <p>وَأَمَّا ٱلسَّآئِلَ فَلَا تَنۡهَرۡ</p> 
+                            <span class="verse-frame"></span>
+                            <p>وَأَمَّا بِنِعۡمَةِ رَبِّكَ فَحَدِّثۡ</p> 
+                            <span class="verse-frame"></span>
+                        </div>
                     </div>
                 </div>
+
             </div>
             <div class="styler">
-                <div class="title">Background</div>
+                <div class="title">
+                    Background 
+                    <i class="fa-solid fa-chevron-down"  id="styler-toggle"></i>
+                </div>
                 <div class="column" id="column-width">
                     <div class="row">
                         <div class="column">
                             <label for="">width</label>
-                            <input type="number" id="width" value="600">
+                            <input type="number" id="width" value="500">
                         </div>
                         <div class="column">
                             <label for="">height</label>
-                            <input type="number" id="height" value="700">
+                            <input type="number" id="height">
                         </div>
                     </div>
                     <div class="row">
                         <div class="column">
                             <label for="">Font Size</label>
-                            <input type="number" placeholder="Font Size With PX" id="fontSize" value="20">
+                            <input type="number" placeholder="Font Size With PX" id="fontSize" value="30">
                         </div>
                         <div class="column">
                             <label for="">Font Color</label>
@@ -94,8 +124,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="title">Fill</div>
-                <div class="column" style="gap:1rem;">
+                <div class="title" id="color-none">Fill</div>
+                <div class="column" id="color-none" style="gap:1rem;">
                     <div class="row">
                         <i class="fa-solid fa-palette" style="color: #000000;"></i>
                         <div class="color-picker-div"></div>
@@ -166,6 +196,7 @@
                     <img src="images/bg/paper2.jpeg" alt="">
                 </div>
                 <div class="images-box none" data-img="frame">
+                    <img src="images/frame/black.png" alt="">
                     <img src="images/frame/brown.png" alt="">
                     <img src="images/frame/white.png" alt="">
                     <img src="images/frame/blue.png" alt="">
@@ -173,6 +204,7 @@
                     <img src="images/frame/green.png" alt="">
                 </div>
                 <div class="images-box none" data-img="verse-frame">
+                    <img src="images/verse/black.png" alt="">
                     <img src="images/verse/brown.png" alt="">
                     <img src="images/verse/white.png" alt="">
                     <img src="images/verse/blue.png" alt="">
@@ -211,5 +243,16 @@
     <script src="js/main.js"></script>
     <script src="js/html2canvas.js"></script>
 
+    <script type="text/javascript">
+        $(document).ready(function(){
+            // const x = $('.verse-frame')[0];
+            // const y = 
+            // console.log($('.verse-frame').before(1));
+            // alert(x)
+            // console.log($('.verse-frame').css("::before"));
+            // console.log($('.verse-frame')[0].style.width);
+        });
+        // var content1 = 
+    </script>
 </body>
 </html>

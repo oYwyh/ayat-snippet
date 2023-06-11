@@ -12,11 +12,10 @@
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
-	color: black;
 }
 body {
 	font-family: Arial, Helvetica, sans-serif;
-	color: black;
+	counter-reset: section;
 	background-color: #f1f1f1;
 }
 .row {
@@ -76,7 +75,7 @@ button {
 // Start Header
 .header {
 	position: relative;
-	padding: 1.5rem 3rem 0.5rem 3rem;
+	padding: 1.5rem 3rem 0rem 3rem;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -88,6 +87,11 @@ button {
 		}
 	}
 	.theme-gallery {
+		@media (max-width:767px) {
+			width: fit-content;
+			height: 30vh;
+			overflow-y: scroll;
+		}
 		display: none;
 		right: 0;
 		position: absolute;
@@ -104,6 +108,7 @@ button {
 			display: block;
 		}
 		.theme {
+			text-align: center;
 			padding: 2rem 3rem;
 			width: 100%;
 			height: 100%;
@@ -130,9 +135,19 @@ button {
 	gap: 5rem;
     height: 100%;
     width: 100%;
-    margin-top: 0rem;
-    padding: 0 1rem;
+    padding: 2rem 1rem;
+	@media (max-width:767px) {
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
 	.surah-options {
+		@media (max-width:767px) {
+			display: flex;
+			flex-direction: column;
+			width: 300px !important;
+			order: 0;
+		}
 		.chooser {
 			.wrapper {
 				display: flex;
@@ -242,6 +257,9 @@ button {
 	}
     .snippet {
         display: flex;
+		@media (max-width:767px) {
+			order: 2;
+		}
         justify-content: center;
         width: 100%;
 		overflow-y: scroll;
@@ -259,8 +277,11 @@ button {
         background-repeat: no-repeat;
         border-radius: 8px;
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-        width: 600px;
-        height: 700px;
+        width: 500px;
+        height: fit-content;
+		@media (max-width:767px) {
+			width: fit-content;
+		}
 		.column {
 			justify-content: center;
 			align-items: center;
@@ -270,6 +291,7 @@ button {
 				font-size: 45px;
 				position: absolute;
 				font-family: 'surahnames';
+				color: black;
 			}
 			img {
 				max-width: 100%;
@@ -295,32 +317,54 @@ button {
 			direction: rtl;
 			gap: 0;
 			.verse {
+				text-align: center;
 				font-family: 'quran';
-				font-size: 3.3rem;
+				font-size: 30px;
 				font-weight: bold;
 				line-height: 2;
 				width: 100%;
-				gap: 0;	
+				gap: 0;
+				initial-letter-align: alphabetic;
 				p {
-					display: inline-block;
+					display: inline;
+					padding: 0;
 				}
 				.verse-frame{
-					font-size: 2rem;
-					padding: 0.6rem 1.2rem;
-					background-position-y: -3px ;
+					display: inline-block;
+					position: relative;
 					background-image: url(../images/verse/brown.png);
+					width: 40px;
+					margin: 0 -0.5rem;
+					background-size: contain;
+
 					background-repeat: no-repeat;
-					width: fit-content;
-					background-size: cover;
 					text-align: center;
-					object-fit: cover;
+					&:before {
+						font-size: 20px;
+						font-weight: bold;
+						counter-increment: section;
+						content:counter(section,  arabic-indic);
+					}
 				}
 			}
 		}
     }
     .styler {
+		@media (max-width:767px) {
+			display: flex;
+			flex-direction: column;
+			width: 300px !important;
+			order: 1;
+		}
+		
         #column-width {
-            display: flex;
+			@media (max-width:767px) {
+				display: none;
+				&.active {
+					display: flex;
+				}
+			}
+			display: flex;
             justify-content: center;
             align-items: center;
             gap: 3rem;
@@ -366,6 +410,8 @@ button {
 			}
 		}
 		.color-options {
+
+			
 			display: block;
 			position: absolute;
 			box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -407,14 +453,38 @@ button {
     .styler {
         border-radius: 8px;
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-        height: 50vh;
+        height: 80vh;
         width: 500px;
         background-color: white;
+		@media (max-width:767px) {
+			height: fit-content;
+		}
+		z-index: 10;
         .title {
             font-size: 18px;
             padding: 1rem 2rem;
             font-weight: bold;
+			@media (max-width:767px) {
+				display: flex;
+				flex-direction: row;
+				justify-content: space-between;
+			}
+			i {
+				cursor: pointer;
+				display: none;
+				@media (max-width:767px) {
+					display: block;
+				}
+			}
         }
+	}
+}
+#color-none {
+	@media (max-width:767px) {
+		display: none;
+		&.active {
+			display: flex;
+		}
 	}
 }
 .imgs-gallery {

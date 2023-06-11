@@ -222,7 +222,6 @@ fetch('data/quran_chapters.json')
                                         document.querySelector('.row-to input').removeAttribute('type')
                                         document.querySelector('.row-to input').setAttribute('type', 'text');
                                         document.querySelector('.row-to input ').setAttribute('readonly', true);
-                                        document.querySelector('.chooser .wrapper').remove()
                                         document.querySelector('.to').remove();
                                         
                                         fetch('data/quran_ar.json')
